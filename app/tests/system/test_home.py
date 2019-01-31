@@ -1,4 +1,4 @@
-from app.tests.system.base_test import BaseTest
+from app.tests.base_test import BaseTest
 import json
 
 

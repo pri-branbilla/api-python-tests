@@ -12,4 +12,5 @@ PyJWT==1.4.2
 pytz==2018.9
 six==1.12.0
 SQLAlchemy==1.2.17
+uWSGI==2.0.17.1
 Werkzeug==0.14.1
