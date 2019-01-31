@@ -4,6 +4,7 @@ from flask import Flask
 from flask_restful import Api
 
 from app.resources.item import Item, ItemList
+from app.resources.store import Store, StoreList
 
 app = Flask(__name__)
 
