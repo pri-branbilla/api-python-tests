@@ -14,4 +14,8 @@ class ItemModelTest(TestCase):
         item = ItemModel('test', 19.99, 1)
         expected = {'name': 'test', 'price': 19.99, 'store_id': 1}
 
-        self.assertEqual(item.json(), expected, "Expected {}, but received {}".format(expected, item.json()))
+        self.assertEqual(
+            item.json(),
+            expected,
+            "Expected {}, but received {}".format(expected, item.json())
+        )

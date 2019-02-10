@@ -1,5 +1,5 @@
 from app.db import db
-from app.models.store import StoreModel
+from app.models.store import StoreModel  # noqa: F401
 
 
 class ItemModel(db.Model):
@@ -18,7 +18,11 @@ class ItemModel(db.Model):
         self.store_id = store_id
 
     def json(self):
-        return {'name': self.name, 'price': self.price, 'store_id': self.store_id}
+        return {
+                'name': self.name,
+                'price': self.price,
+                'store_id': self.store_id
+                }
 
     @classmethod
     def find_by_name(cls, name):
