@@ -4,7 +4,7 @@ from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt import JWT, JWTError
 
-from security import authenticate, identity
+from app.security import authenticate, identity
 from app.resources.item import Item, ItemList
 from app.resources.store import Store, StoreList
 from app.resources.user import UserRegister
