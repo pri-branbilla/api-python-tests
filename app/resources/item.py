@@ -23,7 +23,10 @@ class Item(Resource):
 
     def post(self, name):
         if ItemModel.find_by_name(name):
-            return {'message': "An item with name '{}' already exists.".format(name)}, 400
+            return {
+                'message':
+                "An item with name '{}' already exists.".format(name)
+            }, 400
 
         data = Item.parser.parse_args()
 
@@ -31,7 +34,7 @@ class Item(Resource):
 
         try:
             item.save_to_db()
-        except:
+        except Exception:
             return {"message": "An error occurred inserting the item."}, 500
 
         return item.json(), 201

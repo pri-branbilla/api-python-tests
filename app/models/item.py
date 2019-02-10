@@ -1,6 +1,7 @@
 from app.db import db
 from app.models.store import StoreModel
 
+
 class ItemModel(db.Model):
     __tablename__ = 'items'
 
