@@ -9,19 +9,20 @@ from app.resources.item import Item, ItemList
 from app.resources.store import Store, StoreList
 from app.resources.user import UserRegister
 
-app = Flask(__name__)
+appl = Flask(__name__)
 
-app.config['DEBUG'] = True
+appl.config['DEBUG'] = True
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+appl.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
                                                         'DATABASE_URL',
                                                         'sqlite:///data.db'
                                                         )
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'test'
-api = Api(app)
+appl.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+appl.config['PROPAGATE_EXCEPTIONS'] = True
+appl.secret_key = 'test'
+api = Api(appl)
 
-jwt = JWT(app, authenticate, identity)
+jwt = JWT(appl, authenticate, identity)
 
 api.add_resource(Store, '/store/<string:name>')
 api.add_resource(Item, '/item/<string:name>')
@@ -31,7 +32,7 @@ api.add_resource(StoreList, '/stores')
 api.add_resource(UserRegister, '/register')
 
 
-@app.errorhandler(JWTError)
+@appl.errorhandler(JWTError)
 def auth_error_handler(err):
     return jsonify({
         'message': 'Unauthorized.'
@@ -41,11 +42,11 @@ def auth_error_handler(err):
 if __name__ == '__main__':
     from app.db import db
 
-    db.init_app(app)
+    db.init_app(appl)
 
-    if app.config['DEBUG']:
-        @app.before_first_request
+    if appl.config['DEBUG']:
+        @appl.before_first_request
         def create_tables():
             db.create_all()
 
-    app.run(port=5000)
+    appl.run(port=5000)
