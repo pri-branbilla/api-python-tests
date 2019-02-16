@@ -4,25 +4,25 @@ from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt import JWT, JWTError
 
-from app.security import authenticate, identity
-from app.resources.item import Item, ItemList
-from app.resources.store import Store, StoreList
-from app.resources.user import UserRegister
+from security import authenticate, identity
+from resources.item import Item, ItemList
+from resources.store import Store, StoreList
+from resources.user import UserRegister
 
-appl = Flask(__name__)
+app = Flask(__name__)
 
-appl.config['DEBUG'] = True
+app.config['DEBUG'] = True
 
-appl.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
                                                         'DATABASE_URL',
                                                         'sqlite:///data.db'
                                                         )
-appl.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-appl.config['PROPAGATE_EXCEPTIONS'] = True
-appl.secret_key = 'test'
-api = Api(appl)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['PROPAGATE_EXCEPTIONS'] = True
+app.secret_key = 'test'
+api = Api(app)
 
-jwt = JWT(appl, authenticate, identity)
+jwt = JWT(app, authenticate, identity)
 
 api.add_resource(Store, '/store/<string:name>')
 api.add_resource(Item, '/item/<string:name>')
@@ -32,7 +32,7 @@ api.add_resource(StoreList, '/stores')
 api.add_resource(UserRegister, '/register')
 
 
-@appl.errorhandler(JWTError)
+@app.errorhandler(JWTError)
 def auth_error_handler(err):
     return jsonify({
         'message': 'Unauthorized.'
@@ -40,13 +40,13 @@ def auth_error_handler(err):
 
 
 if __name__ == '__main__':
-    from app.db import db
+    from db import db
 
-    db.init_app(appl)
+    db.init_app(app)
 
-    if appl.config['DEBUG']:
-        @appl.before_first_request
+    if app.config['DEBUG']:
+        @app.before_first_request
         def create_tables():
             db.create_all()
 
-    appl.run(port=5000)
+    app.run(port=5000)

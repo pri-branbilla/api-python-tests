@@ -1,5 +1,4 @@
-from app.db import db
-from app.models.store import StoreModel  # noqa: F401
+from db import db
 
 
 class ItemModel(db.Model):

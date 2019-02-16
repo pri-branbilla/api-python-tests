@@ -1,5 +1,5 @@
-from app.models.user import UserModel
-from app.tests.base_test import BaseTest
+from models.user import UserModel
+from tests.base_test import BaseTest
 import json
 
 class UserTest(BaseTest):

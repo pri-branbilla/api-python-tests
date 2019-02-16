@@ -1,7 +1,7 @@
-from app.models.item import ItemModel
-from app.models.store import StoreModel
-from app.models.user import UserModel
-from app.tests.base_test import BaseTest
+from models.item import ItemModel
+from models.store import StoreModel
+from models.user import UserModel
+from tests.base_test import BaseTest
 import json
 
 

@@ -1,6 +1,6 @@
-from app.models.item import ItemModel
-from app.models.store import StoreModel
-from app.tests.base_test import BaseTest
+from models.item import ItemModel
+from models.store import StoreModel
+from tests.base_test import BaseTest
 
 
 class ItemTestIntegration(BaseTest):
